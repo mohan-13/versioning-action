@@ -1,0 +1,12 @@
+name: 'Artifact Versioning'
+description: 'Generate version tag based on source of push'
+inputs:
+  github_token:
+    description: 'Github Token from secret'
+    required: true
+outputs:
+  version:
+    description: 'Final version'
+runs:
+  using: 'node16'
+  main: 'index.js'
