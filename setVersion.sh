@@ -3,7 +3,8 @@ set -e
 
 checkIfTagExists(){
   version=$1
-  if [ $(git tag -l "$version") ]; then
+  tagCount=$(curl -s https://api.github.com/repos/$GITHUB_REPOSITORY/tags | jq --arg tagName "$version"  '[.[] | select( .name == $tagName)] | length')
+  if [ $tagCount -gt 0 ]; then
     echo "Error: Version $version already released. Please update your version in package/.appversion"
     exit 1
   fi
